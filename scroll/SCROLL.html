@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+    <head>
+        <title>
+            scrollspy
+        </title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+   
+        <style>
+            *{
+                scroll-behavior: smooth;
+            }
+            #container
+            {
+                position: fixed;
+                width: 100%;
+                padding: 1em 0;
+                background-color: aquamarine;
+            }
+            #abc{
+                display: flex;
+                justify-content: space-evenly;
+                height: 3em;
+                line-height: 3em;
+            }
+            .id
+            {
+                padding: 0 1em;
+                margin: 0 3em;
+                border-radius: 2em;
+                transition: all .4s;
+                text-decoration: none;
+                
+            }
+            section
+            {
+                height: 100vh;
+                color: white;
+                font-size: 80px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            body
+            {
+                margin: 0px;
+                padding: 0px;
+                
+            }
+            .active
+            {
+                color: red;
+                background-color: white;
+            }
+            .active:hover
+            {
+                padding: 0 4em;
+                margin: 0;
+            }
+            .progress
+             { 
+                position: fixed; 
+                top: 0; left: 0; 
+                height: 10px;
+                background-color: purple; 
+                transition: all linear 0.1s; 
+                min-width: 1%; 
+            }
+            #sec1{background-color: lightcoral;}
+            #sec2{background-color: lightseagreen} 
+            #sec3{background-color: lightpink;}
+            #sec4{background-color: lightblue;}
+        </style>
+    </head>
+    <body>
+            <div id="container">
+                <div id="abc">
+                    <a href="#sec1"  class="id active">Name</a>
+                    <a href="#sec2" class="id ">Place</a>
+                    <a href="#sec3" class="id ">Animal</a>
+                    <a href="#sec4"  class="id ">Thing</a>
+                </div>
+            </div>
+            <div class="progress"></div>
+                <section id="sec1" class="a">Name </section>
+                <section id="sec2" class="a"> Place</section>
+                <section id="sec3" class="a"> Animal</section>
+                <section id="sec4" class="a">Thing</section>
+
+
+        <script>
+                var divIds = $('a.id');
+      
+                    $(document).scroll(function()
+                    {
+                        divIds.each(function()
+                        {
+                            var container = $(this).attr('href');
+                            var containerOffset = $(container).offset().top;
+                            var containerHeight = $(container).outerHeight();
+                            var containerBottom = containerOffset + containerHeight;
+                            var scrollPosition = $(document).scrollTop();
+                    
+                            if(scrollPosition < containerBottom - 100  && scrollPosition >= containerOffset - 150){
+                                $(this).addClass('active');
+                            } else{
+                                $(this).removeClass('active');
+                            }
+                        });
+                    });
+                $(document).on("scroll", function()
+                {
+                    var pixels = $(document).scrollTop();
+                    var pageHeight = $(document).height() - $(window).height();
+                    var progress = 100 * pixels / pageHeight;
+                    
+                    $("div.progress").css("width", progress + "%");
+                })
+
+ 
+</script>
+    </body>
+</html>
